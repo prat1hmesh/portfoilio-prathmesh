@@ -74,10 +74,28 @@
       padding:18px; border-radius:16px;
       border:1px solid rgba(255,255,255,0.6);
       box-shadow: 0 10px 30px rgba(11,18,32,0.04);
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
     }
-    .avatar { width:120px; height:120px; border-radius:18px; overflow:hidden; margin-bottom:10px; background:linear-gradient(135deg,#e9f3ff,#f4faff); border:1px solid rgba(255,255,255,0.6); }
-    .avatar img { width:100%; height:100%; object-fit:cover; display:none; }
-    .initials { font-weight:800; font-size:36px; color:#2a4963; display:flex; align-items:center; justify-content:center; height:100%; }
+
+    /* Avatar styling: soft rounded square like the screenshot */
+    .avatar {
+      width:86px;
+      height:86px;
+      border-radius:14px;
+      overflow:hidden;
+      background:linear-gradient(135deg,#e9f3ff,#f4faff);
+      border:1px solid rgba(255,255,255,0.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 6px 18px rgba(30,70,100,0.06);
+      flex-shrink:0;
+    }
+    .avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+    .initials { font-weight:800; font-size:28px; color:#2a4963; display:none; align-items:center; justify-content:center; height:100%; width:100%; }
 
     .meta { font-size:14px; color:var(--muted); margin-top:6px; }
 
@@ -112,7 +130,8 @@
     @media (max-width:1000px) {
       .hero { grid-template-columns:1fr; }
       .content-grid { grid-template-columns:1fr; }
-      .profile-card { order: -1; margin-bottom:12px; }
+      .profile-card { order: -1; margin-bottom:12px; align-items:center; text-align:center; }
+      .profile-card .avatar { margin:0 auto 6px auto; }
     }
   </style>
 </head>
@@ -135,8 +154,9 @@
       </div>
 
       <aside class="profile-card" aria-label="Profile summary">
+        <!-- Photo above the name (uses me.jpg by default) -->
         <div class="avatar" id="heroAvatar">
-          <img id="profilePhotoHero" src="myprofilepic.jpg" alt="profile photo">
+          <img id="profilePhotoHero" src="C:\Users\Hp\OneDrive\Documents\me.jpg" alt="Prathmesh Kumbar — profile photo">
           <div class="initials" id="initialsHero">PSK</div>
         </div>
 
@@ -171,18 +191,12 @@
         <div class="content-grid">
           <main>
             <section class="card" id="resumeCard">
-              <div style="display:flex; gap:14px; align-items:flex-start">
-                <div class="avatar" style="width:86px; height:86px;">
-                  <img id="profilePhoto" src="me.jpg" alt="Profile photo large">
-                  <div class="initials" id="initials">PSK</div>
-                </div>
-
-                <div>
-                  <h3 class="section-title">About</h3>
-                  <p class="muted" style="margin-top:10px">
-                    Motivated pre-final year Computer Science and Engineering student with a strong interest in cloud computing, AI/ML, and software development.
-                  </p>
-                </div>
+              <!-- Photo removed from About section per request -->
+              <div>
+                <h3 class="section-title">About</h3>
+                <p class="muted" style="margin-top:10px">
+                  Motivated pre-final year Computer Science and Engineering student with a strong interest in cloud computing, AI/ML, and software development.
+                </p>
               </div>
             </section>
 
@@ -207,12 +221,12 @@
               </div>
 
               <div class="skills">
-                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg"></div><span>Python</span></div>
-                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg"></div><span>ReactJS</span></div>
-                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/amazonaws.svg"></div><span>AWS</span></div>
-                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/html5.svg"></div><span>HTML5</span></div>
-                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/css3.svg"></div><span>CSS3</span></div>
-                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postgresql.svg"></div><span>DBMS</span></div>
+                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg" alt="Python"></div><span>Python</span></div>
+                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg" alt="React"></div><span>ReactJS</span></div>
+                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/amazonaws.svg" alt="AWS"></div><span>AWS</span></div>
+                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/html5.svg" alt="HTML5"></div><span>HTML5</span></div>
+                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/css3.svg" alt="CSS3"></div><span>CSS3</span></div>
+                <div class="skill"><div class="icon-wrap"><img class="skill-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postgresql.svg" alt="DBMS"></div><span>DBMS</span></div>
               </div>
             </section>
 
@@ -300,6 +314,44 @@
     document.getElementById('viewFullBtn').onclick = () =>
       document.getElementById('fullProfile').scrollIntoView({ behavior: 'smooth' });
 
+    // Avatar loader: show image if it loads, otherwise show initials
+    (function () {
+      function setupAvatar(imgId, initialsId) {
+        const img = document.getElementById(imgId);
+        const initials = document.getElementById(initialsId);
+        if (!img || !initials) return;
+
+        // hide initials initially, show image only if it loads successfully
+        initials.style.display = 'none';
+        img.style.display = 'block';
+
+        const src = (img.getAttribute('src') || '').trim();
+        if (!src) {
+          img.style.display = 'none';
+          initials.style.display = 'flex';
+          return;
+        }
+
+        const tester = new Image();
+        tester.onload = function () {
+          if (tester.naturalWidth > 0) {
+            img.style.display = 'block';
+            initials.style.display = 'none';
+          } else {
+            img.style.display = 'none';
+            initials.style.display = 'flex';
+          }
+        };
+        tester.onerror = function () {
+          img.style.display = 'none';
+          initials.style.display = 'flex';
+        };
+        tester.src = src;
+      }
+
+      setupAvatar('profilePhotoHero', 'initialsHero');
+    })();
+
     // Blog localStorage
     (function () {
       const postsEl = document.getElementById('posts');
@@ -320,11 +372,15 @@
           div.className = "card";
           div.style.padding = "12px";
           div.innerHTML = `
-            <h4>${post.title}</h4>
+            <h4>${escapeHtml(post.title)}</h4>
             <div class="muted" style="font-size:12px">${new Date(post.date).toLocaleString()}</div>
-            <p>${post.content}</p>`;
+            <p>${escapeHtml(post.content)}</p>`;
           postsEl.appendChild(div);
         });
+      }
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
       }
 
       render();
@@ -336,7 +392,7 @@
         if (!title || !content) return;
 
         const posts = load();
-        posts.push({ title, content, date: new Date() });
+        posts.push({ title, content, date: new Date().toISOString() });
         save(posts);
         render();
         form.reset();
@@ -347,6 +403,3 @@
   </script>
 </body>
 </html>
-
-
-
